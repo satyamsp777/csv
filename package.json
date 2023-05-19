@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cyclic.sh/s3fs": "^1.2.8",
     "axios": "^1.4.0",
     "csv-parser": "^3.0.0",
     "ejs": "^3.1.9",
