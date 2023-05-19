@@ -104,7 +104,7 @@ const extractedData = filteredData
       index === self.findIndex((e) => e.UTR_Number === entry.UTR_Number)
   );
 
-// console.log(extractedData);
+console.log(extractedData);
 
 const login = async () => {
   try {
