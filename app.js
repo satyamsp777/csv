@@ -66,7 +66,35 @@ app.post("/upload", upload.single("csvFile"), (req, res) => {
           console.error("Error writing JSON file:", err);
           return res.status(500).send("Error writing JSON file.");
         }
+        // Read the JSON file
+const jsonFilePath = (__dirname, "uploads/json/data.json");
+const jsonData = fs.readFileSync(jsonFilePath, "utf8");
+const response = JSON.parse(jsonData);
+// console.log(response);
 
+const filteredData = response.filter(
+  (entry) => entry.Type === "Transfer Credit"
+);
+
+const extractedData = filteredData
+  .map((entry) => {
+    const description = entry.Description || ""; // Set description to an empty string if it is undefined
+    const numberMatch = description.match(/(?<=\/)\d+(?=\/)/);
+    const number = numberMatch ? numberMatch[0] : null;
+    const creditAmount = parseFloat(entry.Credit);
+    return {
+      UTR_Number: number,
+      Credit_Amount: creditAmount,
+    };
+  })
+  .filter(
+    (entry, index, self) =>
+      entry.UTR_Number !== null &&
+      entry.UTR_Number !== "" &&
+      index === self.findIndex((e) => e.UTR_Number === entry.UTR_Number)
+  );
+
+console.log(extractedData);
         console.log("JSON file saved:", jsonFilePath);
         res.render("index", { message: "Data uploaded ." });
         // res.send("Data uploaded and JSON file saved.");
