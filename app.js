@@ -77,7 +77,7 @@ app.post("/upload", upload.single("csvFile"), (req, res) => {
 // extract data
 
 // Read the JSON file
-const jsonFilePath = "./uploads/json/data.json";
+const jsonFilePath = "./opt/render/project/src/uploads/json/data.json";
 const jsonData = fs.readFileSync(jsonFilePath, "utf8");
 const response = JSON.parse(jsonData);
 // console.log(response);
