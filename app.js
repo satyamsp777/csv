@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const csv = require("csv-parser");
-// const fs = require("fs");
-const fs = require("@cyclic.sh/s3fs")(S3_BUCKET_NAME);
+const fs = require("fs");
+// const fs = require("@cyclic.sh/s3fs")(S3_BUCKET_NAME);
 const path = require("path");
 const axios = require("axios");
 
@@ -104,7 +104,7 @@ const extractedData = filteredData
       index === self.findIndex((e) => e.UTR_Number === entry.UTR_Number)
   );
 
-console.log(extractedData);
+// console.log(extractedData);
 
 const login = async () => {
   try {
@@ -298,7 +298,7 @@ const acceptRequests = async (id, user_id, utr_number, amount, token) => {
   }
 };
 
-// getRequests(extractedData);
+getRequests(extractedData);
 
 // setInterval(getRequests(extractedData), 60000);
 
