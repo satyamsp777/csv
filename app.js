@@ -1,13 +1,12 @@
 const express = require("express");
 const multer = require("multer");
 const csv = require("csv-parser");
-const fs = require("fs");
+// const fs = require("fs");
+const fs = require("@cyclic.sh/s3fs")(S3_BUCKET_NAME);
 const path = require("path");
 const axios = require("axios");
 
 const app = express();
-
-// app.set("view engine", "ejs");
 
 // Set storage for uploaded files
 const storage = multer.diskStorage({
@@ -21,22 +20,6 @@ const storage = multer.diskStorage({
 
 // Initialize multer upload
 const upload = multer({ storage });
-
-// Serve the HTML page on GET request
-// app.get("/", (req, res) => {
-//   // res.sendFile(__dirname + "./views/index.ejs");
-//   res.redirect("/index");
-// });
-
-// Serve dashboard page on dashboard route
-// app.get("/index", (req, res) => {
-//   // Initialize the message object
-//   const message = {
-//     text: "",
-//     type: "",
-//   };
-//   res.render("index", { message: message });
-// });
 
 // Set EJS as the template engine
 app.set("view engine", "ejs");
@@ -90,6 +73,8 @@ app.post("/upload", upload.single("csvFile"), (req, res) => {
       });
     });
 });
+
+// extract data
 
 // Read the JSON file
 const jsonFilePath = "./uploads/json/data.json";
